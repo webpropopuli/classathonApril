@@ -2,24 +2,35 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int sumFibs(max)
+/* isPrime */
+int isPrime(int n)
 {
-int fibs[512] = {0};
-
-fibs[0] = fibs[1] = 1;
-
-
-int x=1;
-  do {
-    x++;
-     fibs[x] = fibs[x-1] + fibs[x-2];   //add prev 2
-  } while (fibs[x] <= max);
-
-int tot=0;
-  for(int y=x-1; y>=0; y--)
-    tot += (fibs[y] & 1) ? fibs[y] : 0;
-  return tot;
+  for(int y=2; y<=n/2; y++)
+    if ((n % y) == 0)
+      return 0;
+  return 1;
 }
+
+
+int sumPrimes(max)
+{
+int tot = 0;
+
+if(max < 4)
+  return 0;
+
+for(int x=2; x<=max; x++)
+  {
+  if(isPrime(x)){
+    tot += x;
+    }
+  }
+
+
+
+return tot;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -30,27 +41,36 @@ int main(int argc, char *argv[])
         }
 
     int numMax = atoi(argv[1]);
-    int tot = sumFibs(numMax);
+    int tot = sumPrimes(numMax);
     printf("%i\n", tot);
     return tot;
 }
 
 /* JS code:
 
-function sumFibs(numMax) {
-  var fibs = [1,1];
-
-  var x=1;
-  do {
-    x++;
-     fibs.push(fibs[x-1] + fibs[x-2]);
-  } while (fibs[x] <= numMax);
-
-  var tot=0;
-  for(y=x-1; y>=0; y--)
-    tot += (fibs[y] & 1) ? fibs[y] : 0;
-  return tot;
+function isPrime(n)
+{
+  for(y=2; y<=n/2; y++)
+    if ((n % y) == 0)
+      return false;
+  return true;
 }
 
-sumFibs(4);
+function sumPrimes(numMax) {
+var primes = [];
+
+if(numMax <4)
+  return 0;
+
+for(x=2; x<=numMax; x++)
+  {
+  if(isPrime(x) == true){
+    primes.push(x);
+    //console.log(x);
+    }
+  }
+
+  //console.log(primes);
+return primes.reduce(function (acc, cur) { return (acc + cur);});
+}
 */
