@@ -4,8 +4,8 @@
 
 //debugging stuff
 #define DJM
-#define TXT_INDEX (int)((pT-&strText[0]))
-#define NDX printf("->%d ", TXT_INDEX);
+//#define TXT_INDEX (int)((pT-&strText[0]))
+//#define NDX printf("->%d ", TXT_INDEX);
 
 // prolly shouldn't use string.h functions here
 int Get_strlen (char *s)
@@ -38,7 +38,7 @@ DJM     printf("strContains(): Empty string or srch is larger than text\n");
     char *pT_end = pT + (lenText - lenSrch);    // avoid starting srch on too little remaing text
     while (pT <= pT_end)
     {
-        if(Matches > 1) break;  // remove to find ALL matches. Problem only cares about max 2
+        // if(Matches > 1) break;  // remove to find ALL matches. Problem only cares about max 2
 
         static int x;   // counter for search string
         pS = strSrch;   // reset Srch ptr to beginning of strSrch
@@ -81,6 +81,8 @@ if (argc != 3)
 
 int ret = strContains(argv[1], argv[2]);
 
+if(ret > 2)     // max ret is 2 for any multiple
+    ret = 2;
 printf("%s\n", err_txt[ret]);
 return ret;
 }
